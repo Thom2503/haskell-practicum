@@ -87,6 +87,12 @@ tobinary n | n `mod` 2 == 1 = tobinary (n `div` 2) ++ [1]
 --         multipliar = Lst.tail $ tobinary y
 --     in (multiplicand, multipliar)
 
+
+-- Wanneer kregen we een Exception
+-- pow 10000000 10000000
+-- *** Exception: stack overflow
+-- Als we pow 1999999 1999999 deden kregen we geen exception
+-- Maar het duurde heel erg lang voordat we een antwoord eruit kregen
 pow :: Integer -> Integer -> Integer
 pow _ 0 = 1
 pow x 1 = x
