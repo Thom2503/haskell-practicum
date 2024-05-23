@@ -9,10 +9,15 @@ facb n
     | n == 0 = 1
     | otherwise = n * facb (n - 1)
 
--- nulpuntena :: Double -> Double -> Double -> [Double]
--- nulpuntena a b c
-
-
+nulpuntena :: Double -> Double -> Double -> [Double]
+nulpuntena a b c =
+    let d = b ^ 2 - 4 * a * c
+        root1 = (-b + sqrt d) / (2 * a)
+        root2 = (-b - sqrt d) / (2 * a)
+        root0 = -b / 2 * a
+    in if d > 0 then [root1, root2]
+       else if d == 0 then [root0]
+       else []
 
 nulpuntenb :: Double -> Double -> Double -> [Double]
 nulpuntenb a b c
