@@ -39,6 +39,12 @@ inputalsworpen = filter (\ (x, y, z) -> (x + y + z) `mod` 5 == 0) worpen
 grootte :: Int
 grootte = length inputalsworpen
 
+inputalsworpend :: Integer -> [(Integer, Integer, Integer)]
+inputalsworpend n = filter (\ (x, y, z) -> (x + y + z) `mod` n == 0) worpen
+
+grootted :: Integer -> Int
+grootted n = length $ inputalsworpend n
+
 -- mult :: Integer -> Integer -> Integer
 -- mult x y
 
