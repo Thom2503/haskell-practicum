@@ -30,6 +30,15 @@ nulpuntenb a b c
         root2 = (-b - sqrt d) / (2 * a)
         root0 = -b / 2 * a
 
+worpen :: [(Integer, Integer, Integer)]
+worpen = [(x, y, z)| x <- [1..6], y <- [1..6], z <- [1..6]]
+
+inputalsworpen :: [(Integer, Integer, Integer)]
+inputalsworpen = filter (\ (x, y, z) -> (x + y + z) `mod` 5 == 0) worpen
+-- de grootte van de lijst met de worpen mod 5 is 43
+grootte :: Int
+grootte = length inputalsworpen
+
 -- mult :: Integer -> Integer -> Integer
 -- mult x y
 
