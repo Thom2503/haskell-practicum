@@ -45,8 +45,34 @@ inputalsworpend n = filter (\ (x, y, z) -> (x + y + z) `mod` n == 0) worpen
 grootted :: Integer -> Int
 grootted n = length $ inputalsworpend n
 
--- mult :: Integer -> Integer -> Integer
--- mult x y
+puzzle_ x y z = [eerste y z, tweede x z, derde x y]
+-- vragen
+puzzle = [(x, y, z)| x <- [-100..100], y <- [-100..100], z <- [-100..100],
+           x == eerste y z && y == tweede x z && z == derde x y]
+
+eerste y z = (y - z) * 2
+tweede x z = x * z
+derde x y = (x + y) / 2
+
+mult :: Integer -> Integer -> Integer
+mult _ 0 = 0
+mult x y = x + mult x (y - 1)
+
+-- ergens tussen de 100000 en de 10000000
+-- want:
+-- ghci> Opdr1.mult 1000000 1000000
+--       1000000000000
+-- ghci> Opdr1.mult 10000000 10000000
+--       *** Exception: stack overflow
+-- Met wat veranderingen geeft onze code die we hier hebben deze resultaten
+-- ghci> Opdr1.eerstestack
+--       [81000000000000,81000009000000,*** Exception: stack overflow
+-- als we het ongeveer checken lijkt het met deze getallen te gebeuren
+-- ghci> Opdr1.mult 9500000 9500000
+--       *** Exception: stack overflow
+-- ghci> Opdr1.mult 9000000 9000000
+--       81000000000000
+eerstestack = [mult x y | x <- [9500000..10000000], y <- [9500000..10000000]]
 
 -- fastmult :: Integer -> Integer -> Integer
 -- fastmult x y
