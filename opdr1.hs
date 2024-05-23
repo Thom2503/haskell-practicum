@@ -1,5 +1,7 @@
 module Opdr1 where
 
+import qualified Data.List as Lst
+
 faca :: Int -> Int
 faca 0 = 1
 faca x = x * faca (x - 1)
@@ -74,8 +76,16 @@ mult x y = x + mult x (y - 1)
 --       81000000000000
 eerstestack = [mult x y | x <- [9500000..10000000], y <- [9500000..10000000]]
 
+tobinary 0 = [0]
+tobinary n | n `mod` 2 == 1 = tobinary (n `div` 2) ++ [1]
+           | n `mod` 2 == 0 = tobinary (n `div` 2) ++ [0]
+
+-- vragen aan de docent (4b)
 -- fastmult :: Integer -> Integer -> Integer
--- fastmult x y
+-- fastmult x y =
+--     let multiplicand = Lst.tail $ tobinary x
+--         multipliar = Lst.tail $ tobinary y
+--     in (multiplicand, multipliar)
 
 -- pow :: Integer -> Integer -> Integer
 -- pow x y
