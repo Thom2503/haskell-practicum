@@ -87,8 +87,10 @@ tobinary n | n `mod` 2 == 1 = tobinary (n `div` 2) ++ [1]
 --         multipliar = Lst.tail $ tobinary y
 --     in (multiplicand, multipliar)
 
--- pow :: Integer -> Integer -> Integer
--- pow x y
+pow :: Integer -> Integer -> Integer
+pow _ 0 = 1
+pow x 1 = x
+pow x y = x * pow x (y - 1)
 
 -- fastpow :: Integer -> Integer -> Integer
 -- fastpow x y
