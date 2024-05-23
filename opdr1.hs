@@ -13,8 +13,17 @@ facb n
 -- nulpuntena a b c
 
 
--- nulpuntenb :: Double -> Double -> Double -> [Double]
--- nulpuntenb a b c
+
+nulpuntenb :: Double -> Double -> Double -> [Double]
+nulpuntenb a b c
+    | d > 0 = [root1, root2]
+    | d == 0 = [root0]
+    | otherwise = [] 
+    where
+        d = b ^ 2 - 4 * a * c
+        root1 = (-b + sqrt d) / (2 * a)
+        root2 = (-b - sqrt d) / (2 * a)
+        root0 = -b / 2 * a
 
 -- mult :: Integer -> Integer -> Integer
 -- mult x y
