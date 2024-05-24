@@ -1,6 +1,7 @@
 module Opdr1 where
 
 import qualified Data.List as Lst
+import Data.Bits
 
 faca :: Int -> Int
 faca 0 = 1
@@ -98,5 +99,11 @@ pow _ 0 = 1
 pow x 1 = x
 pow x y = x * pow x (y - 1)
 
--- fastpow :: Integer -> Integer -> Integer
--- fastpow x y
+fastpow::Integer->Integer->Integer
+fastpow x 0 = 1
+fastpow x y = fastpow' x y 1
+    where
+        fastpow' basis exp tell
+            | exp == 0 = tell
+            | exp .&. 1 == 1 = fastpow' ( basis * basis ) (shiftR exp 1) ( basis * tell)
+            | otherwise = fastpow' ( basis * basis ) ( shiftR exp 1) tell
