@@ -1,8 +1,5 @@
 module Opdr1 where
 
-import qualified Data.List as Lst
-import Data.Bits
-
 faca :: Int -> Int
 faca 0 = 1
 faca x = x * faca (x - 1)
@@ -48,18 +45,13 @@ inputalsworpend n = filter (\ (x, y, z) -> (x + y + z) `mod` n == 0) worpen
 grootted :: Integer -> Int
 grootted n = length $ inputalsworpend n
 
-puzzle_ x y z = [eerste y z, tweede x z, derde x y]
--- vragen
+-- :/ 0 0 0
 puzzle = [(x, y, z)| x <- [-100..100], y <- [-100..100], z <- [-100..100],
            x == eerste y z && y == tweede x z && z == derde x y]
 
 eerste y z = (y - z) * 2
 tweede x z = x * z
 derde x y = (x + y) / 2
-
-mult :: Integer -> Integer -> Integer
-mult _ 0 = 0
-mult x y = x + mult x (y - 1)
 
 -- ergens tussen de 100000 en de 10000000
 -- want:
@@ -77,17 +69,20 @@ mult x y = x + mult x (y - 1)
 --       81000000000000
 eerstestack = [mult x y | x <- [9500000..10000000], y <- [9500000..10000000]]
 
-tobinary 0 = [0]
-tobinary n | n `mod` 2 == 1 = tobinary (n `div` 2) ++ [1]
-           | n `mod` 2 == 0 = tobinary (n `div` 2) ++ [0]
+mult :: Integer -> Integer -> Integer
+mult _ 0 = 0
+mult x y = x + mult x (y - 1)
 
--- vragen aan de docent (4b)
--- fastmult :: Integer -> Integer -> Integer
--- fastmult x y =
---     let multiplicand = Lst.tail $ tobinary x
---         multipliar = Lst.tail $ tobinary y
---     in (multiplicand, multipliar)
-
+-- Dit gaat tot ontiegelijk ver veel verder dan het getal bij mult
+fastmult :: Integer -> Integer -> Integer
+fastmult _ 0 = 0
+fastmult 0 _ = 0
+fastmult x y
+    | odd minnum = maxnum + fastmult (minnum - 1) maxnum
+    | even minnum = fastmult (minnum `div` 2) (maxnum * 2)
+    where
+        minnum = min x y
+        maxnum = max x y
 
 -- Wanneer kregen we een Exception
 -- pow 10000000 10000000
@@ -99,11 +94,12 @@ pow _ 0 = 1
 pow x 1 = x
 pow x y = x * pow x (y - 1)
 
-fastpow::Integer->Integer->Integer
+-- ditto als fastmult
+fastpow :: Integer -> Integer -> Integer
 fastpow x 0 = 1
 fastpow x y = fastpow' x y 1
     where
         fastpow' basis exp tell
             | exp == 0 = tell
-            | exp .&. 1 == 1 = fastpow' ( basis * basis ) (shiftR exp 1) ( basis * tell)
-            | otherwise = fastpow' ( basis * basis ) ( shiftR exp 1) tell
+            | even exp = fastpow' (basis * basis) (exp `div` 2) tell
+            | odd exp = fastpow' (basis * basis) ((exp - 1) `div` 2) (basis * tell)
