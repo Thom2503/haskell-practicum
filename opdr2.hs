@@ -1,5 +1,10 @@
 module Opdr2 where
 
+{--
+1055805 Veldhuis, Thom
+1059179 Zumker, Douwe
+--}
+
 euclid :: Integer -> Integer -> Integer
 euclid 0 y = y
 euclid x y = euclid (y `mod` x) x

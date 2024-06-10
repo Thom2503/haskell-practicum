@@ -1,5 +1,10 @@
 module Opdr1 where
 
+{--
+1055805 Veldhuis, Thom
+1059179 Zumker, Douwe
+--}
+
 faca :: Int -> Int
 faca 0 = 1
 faca x = x * faca (x - 1)
@@ -35,6 +40,7 @@ worpen = [(x, y, z)| x <- [1..6], y <- [1..6], z <- [1..6]]
 
 inputalsworpen :: [(Integer, Integer, Integer)]
 inputalsworpen = filter (\ (x, y, z) -> (x + y + z) `mod` 5 == 0) worpen
+
 -- de grootte van de lijst met de worpen mod 5 is 43
 grootte :: Int
 grootte = length inputalsworpen
@@ -45,7 +51,7 @@ inputalsworpend n = filter (\ (x, y, z) -> (x + y + z) `mod` n == 0) worpen
 grootted :: Integer -> Int
 grootted n = length $ inputalsworpend n
 
--- :/ 0 0 0
+-- antwoord 0 0 0 :/
 puzzle = [(x, y, z)| x <- [-100..100], y <- [-100..100], z <- [-100..100],
            x == eerste y z && y == tweede x z && z == derde x y]
 
